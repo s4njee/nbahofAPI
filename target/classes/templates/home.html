@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NBA HOFs</title>
+    <script th:src="@{/scripts/home.js}"></script>
+</head>
+<body>
+
+<!--/*@thymesVar id="players" type="java.util.List<hofapp.models.Player>"*/-->
+
+<ul th:each="player : ${players}">
+    <!--/*@thymesVar id="player" type="hofapp.models.Player"*/-->
+    <li th:text="${player.fullName}">JeBron Lames</li>
+</ul>
+
+</body>
+</html>
