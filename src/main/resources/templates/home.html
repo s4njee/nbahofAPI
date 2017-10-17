@@ -16,28 +16,23 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="players" type="java.util.List<hofapp.models.Player>"*/-->
-<!--/*@thymesVar id="player" type="hofapp.models.Player"*/-->
+<!--/*@thymesVar id="players" type="java.util.List<hofapp.DTO.PlayerWithScore>"*/-->
+<!--/*@thymesVar id="player" type="hofapp.DTO.PlayerWithScore"*/-->
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <ul class="sortable" id="sortable">
-                <li th:each="player : ${players}" th:text="${player.fullName}" th:id="${player.fullName}">JeBron Lames</li>
-            </ul>
-        </div>
-        <div class="col md-9">
-            <ul class="sortable" id="sortable2">
-            </ul>
-            <ul class="sortable" id="sortable3">
-            </ul>
-            <ul class="sortable" id="sortable4">
-            </ul>
-            <ul class="sortable" id="sortable5">
-            </ul>
-            <ul class="sortable" id="sortable6">
-            </ul>
-            <ul class="sortable" id="sortable7">
-            </ul>
+        <div class="col-md-4">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <th></th>
+                <th>Projected Points</th>
+                </thead>
+                <tbody>
+                <tr th:each="player : ${players}">
+                    <td th:text="${player.fullName}" th:id="${player.fullName}">Bob</td>
+                    <td th:text="${player.score}">23</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

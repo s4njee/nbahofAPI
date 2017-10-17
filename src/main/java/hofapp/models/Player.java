@@ -12,17 +12,19 @@ public class Player {
     private int id;
 
     private String firstName;
-    private String lastName;
 
     protected Player() {}
 
-    public Player(String firstName, String lastName) {
+    public Player(String firstName) {
         this.firstName = firstName;
-        this.lastName = lastName;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -33,20 +35,12 @@ public class Player {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstName;
     }
 
     @Override
     public String toString() {
-        return String.format("Player: %s %s", firstName, lastName);
+        return String.format("Player: %s", firstName);
     }
 }
