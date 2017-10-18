@@ -34,6 +34,14 @@
                 <th th:each="player : ${players}" th:text="${player.fullName}"></th>
                 </thead>
                 <tbody>
+                <tr>
+                    <th>Projected Score</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th th:each="player : ${players}" th:text="${player.score}"></th>
+                </tr>
                 <tr th:each="teamRecord : ${liveTeamRecords.values}">
                     <td th:text="${teamRecord.key}" th:id="${teamRecord.key}">Bob</td>
                     <td th:text="${teamRecord.value.liveTeamRecord.overUnder}">23</td>

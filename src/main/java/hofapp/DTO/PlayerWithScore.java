@@ -4,9 +4,10 @@ import hofapp.models.Player;
 
 public class PlayerWithScore extends Player {
 
-    public PlayerWithScore(Player player) {
+    public PlayerWithScore(Player player, int score) {
         this.setId(player.getId());
         this.setFirstName(player.getFirstName());
+        this.score = score;
     }
 
     private Integer score;
