@@ -39,8 +39,12 @@
                     <td th:text="${teamRecord.value.liveTeamRecord.overUnder}">23</td>
                     <td th:text="${teamRecord.value.liveTeamRecord.actualWins}+'-'+${teamRecord.value.liveTeamRecord.losses}">23</td>
                     <td th:text="${teamRecord.value.liveTeamRecord.differential}">23</td>
-                    <td th:text="${teamRecord.value.liveTeamRecord.pythagTotalWins}">23</td>
-                    <td th:each="player : ${players}" th:text="${teamRecord.value.votes.get(player.id) != null ? teamRecord.value.votes.get(player.id).displayName : 0}"></td>
+                    <td>
+                        <span th:text="${teamRecord.value.liveTeamRecord.pythagTotalWins}">23</span>
+                        <img th:src="@{/images/octicons-6.0.1/lib/svg/chevron-up.svg}" th:if="${teamRecord.value.isOver()}"/>
+                        <img th:src="@{/images/octicons-6.0.1/lib/svg/chevron-down.svg}" th:if="${!teamRecord.value.isOver()}"/>
+                    </td>
+                    <td th:each="player : ${players}" th:text="${ teamRecord.value.votes.get(player.id).displayName}" th:attrappend="class=${teamRecord.value.isVoteCorrectForPlayer(player.id) ? 'green' : 'red'}" ></td>
                 </tr>
                 </tbody>
             </table>

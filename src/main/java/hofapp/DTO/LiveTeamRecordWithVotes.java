@@ -4,10 +4,7 @@ import hofapp.models.Answer;
 import hofapp.models.LiveTeamRecord;
 import hofapp.models.Vote;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LiveTeamRecordWithVotes  {
     private Map<Integer, Answer> votes;
@@ -24,6 +21,26 @@ public class LiveTeamRecordWithVotes  {
 
     public void setLiveTeamRecord(LiveTeamRecord liveTeamRecord) {
         this.liveTeamRecord = liveTeamRecord;
+    }
+
+    private List<String> getCorrectVoteAnswers() {
+        if(liveTeamRecord.getPythagTotalWins() == null) {
+            return new ArrayList<>();
+        }
+
+        if(liveTeamRecord.getPythagTotalWins() > liveTeamRecord.getOverUnder()) {
+            return new ArrayList<>(Arrays.asList("OVER", "OVER LOCK"));
+        }
+
+        return new ArrayList<>(Arrays.asList("UNDER", "UNDER LOCK"));
+    }
+
+    public boolean isVoteCorrectForPlayer(Integer playerId) {
+        return getCorrectVoteAnswers().contains(votes.get(playerId).getVoteName());
+    }
+
+    public boolean isOver() {
+        return getCorrectVoteAnswers().contains("OVER");
     }
 
     public Map<Integer, Answer> getVotes() {
