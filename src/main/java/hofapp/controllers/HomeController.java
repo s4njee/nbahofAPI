@@ -1,6 +1,6 @@
 package hofapp.controllers;
 
-import hofapp.DTO.LiveTeamRecordsWithVotes;
+import hofapp.DTO.TeamVoteRecords;
 import hofapp.services.LiveTeamRecordService;
 import hofapp.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        LiveTeamRecordsWithVotes teamRecords = liveTeamRecordService.getAllLiveTeamRecords();
+        TeamVoteRecords teamRecords = liveTeamRecordService.getAllLiveTeamRecords();
         model.addAttribute("players", playerService.getSortedPlayersWithScores(teamRecords));
         return "home";
     }
 
     @RequestMapping("/results")
     public String results(Model model) {
-        LiveTeamRecordsWithVotes teamRecords = liveTeamRecordService.getAllLiveTeamRecords();
+        TeamVoteRecords teamRecords = liveTeamRecordService.getAllLiveTeamRecords();
         model.addAttribute("players", playerService.getSortedPlayersWithScores(teamRecords));
         model.addAttribute("liveTeamRecords", teamRecords);
         return "results";

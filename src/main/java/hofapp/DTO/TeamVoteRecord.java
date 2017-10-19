@@ -6,12 +6,12 @@ import hofapp.models.Vote;
 
 import java.util.*;
 
-public class LiveTeamRecordWithVotes  {
+public class TeamVoteRecord {
     private Map<Integer, Answer> votes;
 
     private LiveTeamRecord liveTeamRecord;
 
-    LiveTeamRecordWithVotes(LiveTeamRecord liveTeamRecord) {
+    TeamVoteRecord(LiveTeamRecord liveTeamRecord) {
         this.liveTeamRecord = liveTeamRecord;
     }
 
@@ -37,6 +37,14 @@ public class LiveTeamRecordWithVotes  {
 
     public boolean isVoteCorrectForPlayer(Integer playerId) {
         return getCorrectVoteAnswers().contains(votes.get(playerId).getVoteName());
+    }
+
+    public int getPlayerScore(Integer playerId) {
+        if(isVoteCorrectForPlayer(playerId)) {
+            return votes.get(playerId).getCorrectValue();
+        }
+
+        return votes.get(playerId).getIncorrectValue();
     }
 
     public boolean isOver() {

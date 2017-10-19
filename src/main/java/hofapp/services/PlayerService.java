@@ -1,13 +1,12 @@
 package hofapp.services;
 
-import hofapp.DTO.LiveTeamRecordsWithVotes;
+import hofapp.DTO.TeamVoteRecords;
 import hofapp.DTO.PlayerWithScore;
 import hofapp.models.Player;
 import hofapp.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,27 +17,25 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public List<PlayerWithScore> getAllPlayersWithScores(LiveTeamRecordsWithVotes liveTeamRecordsWithVotes) {
+    public List<PlayerWithScore> getAllPlayersWithScores(TeamVoteRecords teamVoteRecords) {
         Iterable<Player> players  = playerRepository.findAll();
-        return scorePlayers(players, liveTeamRecordsWithVotes);
+        return scorePlayers(players, teamVoteRecords);
     }
 
-    public List<PlayerWithScore> getSortedPlayersWithScores(LiveTeamRecordsWithVotes liveTeamRecordsWithVotes) {
-        List<PlayerWithScore> playerWithScores = getAllPlayersWithScores(liveTeamRecordsWithVotes);
-        return playerWithScores.stream().sorted(Comparator.comparingInt(PlayerWithScore::getScore)).collect(Collectors.toList());
+    public List<PlayerWithScore> getSortedPlayersWithScores(TeamVoteRecords teamVoteRecords) {
+        List<PlayerWithScore> playerWithScores = getAllPlayersWithScores(teamVoteRecords);
+        return playerWithScores.stream().sorted(Comparator.comparingInt(player -> player.getScore()*-1)).collect(Collectors.toList());
     }
 
-    private List<PlayerWithScore> scorePlayers(Iterable<Player> players, LiveTeamRecordsWithVotes liveTeamRecordsWithVotes) {
+    private List<PlayerWithScore> scorePlayers(Iterable<Player> players, TeamVoteRecords teamVoteRecords) {
         return StreamSupport.stream(players.spliterator(), false)
-                .map(player -> scorePlayer(liveTeamRecordsWithVotes, player))
+                .map(player -> scorePlayer(teamVoteRecords, player))
                 .collect(Collectors.toList());
     }
 
-    private PlayerWithScore scorePlayer(LiveTeamRecordsWithVotes liveTeamRecordsWithVotes, Player player) {
-        int score = liveTeamRecordsWithVotes.getValues().entrySet().stream()
-                .mapToInt(team -> team.getValue().isVoteCorrectForPlayer(player.getId()) ?
-                        team.getValue().getVotes().get(player.getId()).getCorrectValue():
-                        team.getValue().getVotes().get(player.getId()).getIncorrectValue())
+    private PlayerWithScore scorePlayer(TeamVoteRecords teamVoteRecords, Player player) {
+        int score = teamVoteRecords.getValues().entrySet().stream()
+                .mapToInt(team -> team.getValue().getPlayerScore(player.getId()))
                 .sum();
 
         return new PlayerWithScore(player, score);
