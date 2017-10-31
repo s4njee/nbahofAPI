@@ -33,6 +33,10 @@
     padding: 4px;
 }
 
-tr:hover {
-    background-color: rgba(0,0,0,.2)
+tr:hover  {
+    background-color: rgba(0,0,0,.2) !important;
+}
+
+tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.25) !important
 }
