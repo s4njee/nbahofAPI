@@ -10,8 +10,6 @@ public class TeamVoteRecords {
     private Map<String, TeamVoteRecord> values = new HashMap<>();
 
     public TeamVoteRecords(LiveTeamRecords liveTeamRecords) {
-
-
         values = liveTeamRecords.getValues().entrySet().stream()
                 .sorted(Comparator.comparing(entry -> entry.getValue().getPythagTotalWins() != null ? -1 * entry.getValue().getPythagTotalWins() : 0))
                 .collect(Collectors.toMap(Map.Entry::getKey,

@@ -17,14 +17,14 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public List<PlayerWithScore> getAllPlayersWithScores(TeamVoteRecords teamVoteRecords) {
-        Iterable<Player> players  = playerRepository.findAll();
-        return scorePlayers(players, teamVoteRecords);
-    }
-
     public List<PlayerWithScore> getSortedPlayersWithScores(TeamVoteRecords teamVoteRecords) {
         List<PlayerWithScore> playerWithScores = getAllPlayersWithScores(teamVoteRecords);
         return playerWithScores.stream().sorted(Comparator.comparingInt(player -> player.getScore()*-1)).collect(Collectors.toList());
+    }
+
+    private List<PlayerWithScore> getAllPlayersWithScores(TeamVoteRecords teamVoteRecords) {
+        Iterable<Player> players  = playerRepository.findAll();
+        return scorePlayers(players, teamVoteRecords);
     }
 
     private List<PlayerWithScore> scorePlayers(Iterable<Player> players, TeamVoteRecords teamVoteRecords) {
