@@ -23,32 +23,54 @@ public class TeamVoteRecord {
         this.liveTeamRecord = liveTeamRecord;
     }
 
-    private List<String> getCorrectVoteAnswers() {
+    private Optional<List<String>> getCorrectVoteAnswers() {
         if(liveTeamRecord.getPythagTotalWins() == null) {
-            return new ArrayList<>();
+            return Optional.of(new ArrayList<>());
+        }
+
+        if(liveTeamRecord.getPythagTotalWins() == liveTeamRecord.getOverUnder())
+        {
+            return Optional.empty();
         }
 
         if(liveTeamRecord.getPythagTotalWins() > liveTeamRecord.getOverUnder()) {
-            return new ArrayList<>(Arrays.asList("OVER", "OVER LOCK"));
+            return Optional.of(new ArrayList<>(Arrays.asList("OVER", "OVER LOCK")));
         }
 
-        return new ArrayList<>(Arrays.asList("UNDER", "UNDER LOCK"));
+        return Optional.of(new ArrayList<>(Arrays.asList("UNDER", "UNDER LOCK")));
     }
 
-    public boolean isVoteCorrectForPlayer(Integer playerId) {
-        return getCorrectVoteAnswers().contains(votes.get(playerId).getVoteName());
+    public Optional<Boolean> isVoteCorrectForPlayer(Integer playerId) {
+        Optional<List<String>> correctVoteAnswers = getCorrectVoteAnswers();
+
+        return correctVoteAnswers.map(strings -> strings.contains(votes.get(playerId).getVoteName()));
+    }
+
+    public String getCorrectnessColour(Integer playerId) {
+        return isVoteCorrectForPlayer(playerId)
+                .map(isCorrect -> isCorrect ? "green" : "red").orElse("yellow");
     }
 
     public int getPlayerScore(Integer playerId) {
-        if(isVoteCorrectForPlayer(playerId)) {
-            return votes.get(playerId).getCorrectValue();
-        }
+        Optional<Boolean> playerIsCorrect = isVoteCorrectForPlayer(playerId);
 
-        return votes.get(playerId).getIncorrectValue();
+        return playerIsCorrect.map(isCorrect ->
+                isCorrect ?
+                        votes.get(playerId).getCorrectValue() :
+                        votes.get(playerId).getIncorrectValue())
+                .orElse(0);
     }
 
     public boolean isOver() {
-        return getCorrectVoteAnswers().contains("OVER");
+        return getCorrectVoteAnswers().map( answers -> answers.contains("OVER")).orElse(false);
+    }
+
+    public boolean isUnder() {
+        return getCorrectVoteAnswers().map( answers -> answers.contains("UNDER")).orElse(false);
+    }
+
+    public boolean isPush() {
+        return !isOver() && !isUnder();
     }
 
     public Map<Integer, Answer> getVotes() {
