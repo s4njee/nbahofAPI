@@ -40,9 +40,9 @@ public class TeamVoteRecord {
         return Optional.of(new ArrayList<>(Arrays.asList("UNDER", "UNDER LOCK")));
     }
 
-    public Optional<Boolean> isVoteCorrectForPlayer(Integer playerId) {
+    private Optional<Boolean> isVoteCorrectForPlayer(Integer playerId) {
         Optional<List<String>> correctVoteAnswers = getCorrectVoteAnswers();
-
+        System.out.print(correctVoteAnswers);
         return correctVoteAnswers.map(strings -> strings.contains(votes.get(playerId).getVoteName()));
     }
 
