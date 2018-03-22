@@ -45,6 +45,9 @@ public class TeamVoteRecord {
         System.out.println(correctVoteAnswers);
         System.out.println(votes);
         System.out.println(playerId);
+        if(votes == null) {
+            return Optional.empty();
+        }
         return correctVoteAnswers.map(strings -> strings.contains(votes.get(playerId).getVoteName()));
     }
 
