@@ -16,15 +16,24 @@ public class LiveTeamRecordService {
 
     public TeamVoteRecords getAllLiveTeamRecords() {
         RestTemplate restTemplate = new RestTemplate();
+        System.out.println("Here 1");
         LiveTeamRecords liveTeamRecords = restTemplate.getForObject("http://mattandsam.herokuapp.com/scrape", LiveTeamRecords.class);
-        return decorateLiveTeamRecordsWithVotes(liveTeamRecords);
+        System.out.println(liveTeamRecords);
+        System.out.println("liveTeamRecords");
+        TeamVoteRecords decorated = decorateLiveTeamRecordsWithVotes(liveTeamRecords);
+        System.out.println(decorated);
+        return decorated;
     }
 
     private TeamVoteRecords decorateLiveTeamRecordsWithVotes(LiveTeamRecords liveTeamRecords) {
         TeamVoteRecords teamVoteRecords = new TeamVoteRecords(liveTeamRecords);
         Iterable<Vote> votes = voteRepository.findAll();
+
+        System.out.println("Adding votes");
         votes.iterator().forEachRemaining(vote ->
                 teamVoteRecords.getValues().get(vote.getTeam().getTeamName()).addVote(vote));
+
+        System.out.println("added votes");
         return teamVoteRecords;
     }
 }
