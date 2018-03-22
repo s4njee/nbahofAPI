@@ -42,7 +42,9 @@ public class TeamVoteRecord {
 
     private Optional<Boolean> isVoteCorrectForPlayer(Integer playerId) {
         Optional<List<String>> correctVoteAnswers = getCorrectVoteAnswers();
-        System.out.print(correctVoteAnswers);
+        System.out.println(correctVoteAnswers);
+        System.out.println(votes);
+        System.out.println(playerId);
         return correctVoteAnswers.map(strings -> strings.contains(votes.get(playerId).getVoteName()));
     }
 
