@@ -38,7 +38,11 @@ public class PlayerService {
                 .mapToInt(team -> team.getValue().getPlayerScore(player.getId()))
                 .sum();
 
-        return new PlayerWithScore(player, score);
+        int certainScore = teamVoteRecords.getValues().entrySet().stream()
+                .mapToInt(team -> team.getValue().getPlayerCertainScore(player.getId()))
+                .sum();
+
+        return new PlayerWithScore(player, score, certainScore);
     }
 }
 

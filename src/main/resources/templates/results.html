@@ -40,7 +40,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th th:each="player : ${players}" th:text="${player.score}"></th>
+                    <th th:each="player : ${players}" th:text="${player.getCombinedScore()}"></th>
                 </tr>
                 <tr th:each="teamRecord,teamRecordStatus : ${liveTeamRecords.values}" th:attrappend="class=${teamRecordStatus.current.value.liveTeamRecord.getRowStyle()}">
                     <td th:text="${teamRecord.key}" th:id="${teamRecord.key}">Bob</td>

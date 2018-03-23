@@ -63,6 +63,20 @@ public class TeamVoteRecord {
                 .orElse(0);
     }
 
+    public int getPlayerCertainScore(Integer playerId) {
+        Optional<Boolean> playerIsCorrect = isVoteCorrectForPlayer(playerId);
+
+        if(!playerIsCorrect.isPresent() || !(liveTeamRecord.isOverImpossible() || liveTeamRecord.isUnderImpossible())) {
+            return 0;
+        }
+
+        return playerIsCorrect.map(isCorrect ->
+                isCorrect ?
+                        votes.get(playerId).getCorrectValue() :
+                        votes.get(playerId).getIncorrectValue())
+                .orElse(0);
+    }
+
     public boolean isOver() {
         return getCorrectVoteAnswers().map( answers -> answers.contains("OVER")).orElse(false);
     }
