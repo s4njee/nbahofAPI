@@ -25,9 +25,7 @@ public class LiveTeamRecordService {
         Iterable<Vote> votes = voteRepository.findAll();
 
         System.out.println("Adding votes");
-        votes.iterator().forEachRemaining(vote ->
-                teamVoteRecords.getValues().get(vote.getTeam().getTeamName()).addVote(vote));
-
+        teamVoteRecords.setVotes(votes);
         System.out.println("added votes");
         return teamVoteRecords;
     }

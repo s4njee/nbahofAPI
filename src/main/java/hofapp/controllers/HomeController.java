@@ -20,7 +20,9 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model) {
         TeamVoteRecords teamRecords = liveTeamRecordService.getAllLiveTeamRecords();
+
         model.addAttribute("players", playerService.getSortedPlayersWithScores(teamRecords));
+        model.addAttribute("liveTeamRecords", teamRecords);
         return "home";
     }
 
