@@ -25,6 +25,14 @@
     border: 2px dashed rgba(0,255,0,0.2);
 }
 
+.over-hit {
+    background-color: rgba(0,255,0,0.2) !important;
+}
+
+.under-hit {
+    background-color: rgba(255,0,0,0.2)!important;
+}
+
 .table {
     font-size: 12px;
 }
@@ -37,8 +45,8 @@ tr:hover  {
     background-color: rgba(0,0,0,.2) !important;
 }
 
-tr:hover:nth-of-type(odd) {
-    background-color: rgba(0,0,0,.25) !important
+tr.normal:hover:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.25)
 }
 
 td:after {

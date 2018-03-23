@@ -42,9 +42,6 @@ public class TeamVoteRecord {
 
     private Optional<Boolean> isVoteCorrectForPlayer(Integer playerId) {
         Optional<List<String>> correctVoteAnswers = getCorrectVoteAnswers();
-        System.out.println(correctVoteAnswers);
-        System.out.println(votes);
-        System.out.println(playerId);
         if(votes == null) {
             return Optional.empty();
         }

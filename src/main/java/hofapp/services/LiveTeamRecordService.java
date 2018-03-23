@@ -16,13 +16,8 @@ public class LiveTeamRecordService {
 
     public TeamVoteRecords getAllLiveTeamRecords() {
         RestTemplate restTemplate = new RestTemplate();
-        System.out.println("Here 1");
         LiveTeamRecords liveTeamRecords = restTemplate.getForObject("http://mattandsam.herokuapp.com/scrape", LiveTeamRecords.class);
-        System.out.println(liveTeamRecords);
-        System.out.println("liveTeamRecords");
-        TeamVoteRecords decorated = decorateLiveTeamRecordsWithVotes(liveTeamRecords);
-        System.out.println(decorated);
-        return decorated;
+        return decorateLiveTeamRecordsWithVotes(liveTeamRecords);
     }
 
     private TeamVoteRecords decorateLiveTeamRecordsWithVotes(LiveTeamRecords liveTeamRecords) {

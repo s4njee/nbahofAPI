@@ -75,7 +75,7 @@ public class LiveTeamRecord {
     }
 
     public boolean isUnderImpossible() {
-        return isUnderImpossible;
+        return actualWins > overUnder;
     }
 
     public void setUnderImpossible(boolean underImpossible) {
@@ -83,7 +83,7 @@ public class LiveTeamRecord {
     }
 
     public boolean isOverImpossible() {
-        return isOverImpossible;
+        return 82 - losses < overUnder;
     }
 
     public void setOverImpossible(boolean overImpossible) {
@@ -97,4 +97,10 @@ public class LiveTeamRecord {
     public void setLastYearsRecord(String lastYearsRecord) {
         this.lastYearsRecord = lastYearsRecord;
     }
+
+    public String getRowStyle() {
+        System.out.println("OU:" + overUnder + " " + actualWins + " " + losses);
+        return isUnderImpossible() ? "over-hit" : isOverImpossible() ? "under-hit" : "normal";
+    }
+
 }
