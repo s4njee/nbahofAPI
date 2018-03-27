@@ -99,7 +99,6 @@ public class LiveTeamRecord {
     }
 
     public String getRowStyle() {
-        System.out.println("OU:" + overUnder + " " + actualWins + " " + losses);
         return isUnderImpossible() ? "over-hit" : isOverImpossible() ? "under-hit" : "normal";
     }
 

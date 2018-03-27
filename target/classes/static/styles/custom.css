@@ -25,14 +25,11 @@
     border: 2px dashed rgba(0,255,0,0.2);
 }
 
-.over-hit {
-    background-color: rgba(0,255,0,0.2) !important;
-}
+.over-hit > td.green { background-color: #a3ffa3!important }
 
-.under-hit {
-    background-color: rgba(255,0,0,0.2)!important;
-}
+.under-hit > td.green { background-color: #a3ffa3!important }
 
+.over-hit > td.red, .under-hit > td.red { background-color: lightgrey }
 .table {
     font-size: 12px;
 }
