@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Service
 public class LiveTeamRecordService {
@@ -18,10 +19,13 @@ public class LiveTeamRecordService {
     private VoteRepository voteRepository;
 
     public TeamVoteRecords getAllLiveTeamRecords() {
+
+        Calendar calendar = new GregorianCalendar();
+
         return getAllLiveTeamRecords(
-                Integer.toString(Calendar.getInstance().get(Calendar.YEAR)),
-                Integer.toString(Calendar.getInstance().get(Calendar.MONTH)),
-                Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+                Integer.toString(calendar.get(Calendar.YEAR)),
+                Integer.toString(calendar.get(Calendar.MONTH)+1),
+                Integer.toString(calendar.get(Calendar.DATE))
         );
     }
 
