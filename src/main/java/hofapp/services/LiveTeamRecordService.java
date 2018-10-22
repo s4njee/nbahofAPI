@@ -2,7 +2,9 @@ package hofapp.services;
 
 import hofapp.DTO.LiveTeamRecords;
 import hofapp.DTO.TeamVoteRecords;
+import hofapp.models.LiveTeamRecord;
 import hofapp.models.Vote;
+import hofapp.repositories.LiveTeamRecordRepository;
 import hofapp.repositories.VoteRepository;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,16 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.stream.StreamSupport;
 
 @Service
 public class LiveTeamRecordService {
 
     @Autowired
     private VoteRepository voteRepository;
+
+    @Autowired
+    private LiveTeamRecordRepository liveTeamRecordRepository;
 
     public TeamVoteRecords getAllLiveTeamRecords() {
 
@@ -34,6 +40,8 @@ public class LiveTeamRecordService {
         if(StringUtils.isBlank(year) || StringUtils.isBlank(month) || StringUtils.isBlank(day)) {
             return getAllLiveTeamRecords();
         }
+
+        Iterable<LiveTeamRecord> allLiveTeamRecords = liveTeamRecordRepository.findAll();
 
         RestTemplate restTemplate = new RestTemplate();
         LiveTeamRecords liveTeamRecords = restTemplate.getForObject(

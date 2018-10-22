@@ -2,6 +2,7 @@ package hofapp.DTO;
 
 import hofapp.models.LiveTeamRecord;
 
+import javax.persistence.ManyToOne;
 import java.util.Map;
 
 public class LiveTeamRecords {
